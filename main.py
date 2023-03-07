@@ -1,34 +1,17 @@
-import telegram
-import telethon
-import time
-import aiogram
+from telethon.sync import TelegramClient, events
 
-# введите токен вашего бота
-TOKEN = '5721038097:AAGlW6g4mA7a4YbESCs6FKXe-mTj5zBjXWs'
+api_id = 23474370
+api_hash = '57ea04dc666c8208fd7bed0c701ba366'
+chat_name = '-1001491932389 '
+file_name = 'messages.txt'
 
-# создайте экземпляр клиента Telegram
-bot = telegram.Bot(token=TOKEN)
+client = TelegramClient('session_name', api_id, api_hash)
+client.start()
 
-# введите ID чата, в котором вы хотите собирать сообщения
-CHAT_ID = '-1001491932389'
 
-# установите интервал между сбором сообщений (в секундах)
-INTERVAL = 60
+@client.on(events.NewMessage(chats=chat_name))
+async def handler(event):
+    with open(file_name, 'a') as f:
+        f.write(event.message.message + '\n')
 
-# функция для получения всех сообщений из чата
-def get_all_messages():
-    all_messages = []
-    last_message_id = None
-    while True:
-        messages = bot.get_chat_history(chat_id=CHAT_ID, limit=100, offset=last_message_id)
-        if not messages:
-            break
-        all_messages.extend(messages)
-        last_message_id = messages[-1].message_id
-    return all_messages
-
-# бесконечный цикл сбора сообщений с заданным интервалом
-while True:
-    all_messages = get_all_messages()
-    # обработка собранных сообщений здесь
-    time.sleep(INTERVAL)
+client.run_until_disconnected()
