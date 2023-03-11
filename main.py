@@ -1,8 +1,8 @@
 from telethon.sync import TelegramClient, events
 
-api_id = 23474370
-api_hash = '57ea04dc666c8208fd7bed0c701ba366'
-chat_name = '-1001491932389 '
+api_id = 27019282
+api_hash = 'd335785b2641e327c30ca20d56cab317'
+chat_name = '-1001491932389'
 file_name = 'messages.txt'
 
 client = TelegramClient('session_name', api_id, api_hash)
