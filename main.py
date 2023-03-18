@@ -13,5 +13,3 @@ client.start()
 async def handler(event):
     with open(file_name, 'a') as f:
         f.write(event.message.message + '\n')
-
-client.run_until_disconnected()
